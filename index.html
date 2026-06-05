@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpeakLab B2 | Real Conversation Practice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#practice" aria-label="SpeakLab home">
+        <span class="brand-mark">B2</span>
+        <span>
+          <strong>SpeakLab</strong>
+          <small>B2 speaking coach</small>
+        </span>
+      </a>
+
+      <nav class="nav-list">
+        <button class="nav-item is-active" type="button" data-view="practice" aria-pressed="true" title="Practice">
+          <span class="icon" aria-hidden="true">Q</span>
+          <span>Questions</span>
+        </button>
+        <button class="nav-item" type="button" data-view="phrases" aria-pressed="false" title="Phrase bank">
+          <span class="icon" aria-hidden="true">P</span>
+          <span>Phrases</span>
+        </button>
+        <button class="nav-item" type="button" data-view="roleplay" aria-pressed="false" title="Roleplay">
+          <span class="icon" aria-hidden="true">R</span>
+          <span>Roleplay</span>
+        </button>
+        <button class="nav-item" type="button" data-view="progress" aria-pressed="false" title="Progress">
+          <span class="icon" aria-hidden="true">%</span>
+          <span>Progress</span>
+        </button>
+      </nav>
+
+      <section class="goal-panel" aria-label="Daily goal">
+        <div class="goal-row">
+          <span>Daily goal</span>
+          <strong><span id="goal-count">0</span>/5</strong>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <span id="goal-bar"></span>
+        </div>
+        <p id="streak-copy">Answer one B2 question aloud.</p>
+      </section>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Real-world English for students</p>
+          <h1>SpeakLab B2</h1>
+        </div>
+        <div class="top-actions">
+          <button class="icon-button" id="theme-toggle" type="button" title="Toggle theme" aria-label="Toggle theme">
+            <span aria-hidden="true">D</span>
+          </button>
+          <button class="primary-action" id="quick-start" type="button">
+            <span aria-hidden="true">▶</span>
+            Start
+          </button>
+        </div>
+      </header>
+
+      <section class="hero-band" aria-label="Speaking practice dashboard">
+        <div class="hero-copy">
+          <span class="level-pill">B2 upper-intermediate</span>
+          <h2>Answer real questions, then see exactly where your English breaks.</h2>
+          <p>Для студентов, которые уже знают базу, но хотят говорить увереннее: мнение, аргументы, примеры, уточнения и естественные ответы в реальной жизни.</p>
+          <div class="hero-stats" aria-label="Today stats">
+            <span><strong id="today-minutes">0</strong> min</span>
+            <span><strong id="today-phrases">0</strong> phrases</span>
+            <span><strong id="today-score">0</strong>% B2 score</span>
+          </div>
+        </div>
+        <img src="assets/hero-speaking.png" alt="Students practicing English conversation with speech bubbles" class="hero-image">
+      </section>
+
+      <section class="view is-visible" id="practice" data-view-panel="practice">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">B2 question bank</p>
+            <h2>Real-world speaking questions</h2>
+          </div>
+          <div class="segmented" role="tablist" aria-label="Answer length">
+            <button class="is-selected" type="button" data-level="guided">Guided</button>
+            <button type="button" data-level="exam">Exam</button>
+            <button type="button" data-level="natural">Natural</button>
+          </div>
+        </div>
+
+        <div class="practice-grid">
+          <section class="drill-panel" aria-label="Current B2 question">
+            <div class="drill-top">
+              <span class="topic-chip" id="drill-topic">Work & interviews</span>
+              <button class="icon-button" id="shuffle-drill" type="button" title="New question" aria-label="New question">
+                <span aria-hidden="true">↻</span>
+              </button>
+            </div>
+
+            <p class="prompt-label">Question</p>
+            <h3 id="drill-situation">What skills are most important when people start their first job?</h3>
+
+            <div class="target-box">
+              <p>Answer structure</p>
+              <strong id="target-line">Opinion → reason → real example → short conclusion</strong>
+              <button class="listen-button" id="listen-target" type="button">
+                <span aria-hidden="true">▷</span>
+                Listen
+              </button>
+            </div>
+
+            <div class="support-grid" aria-label="Answer support">
+              <div>
+                <span>Useful ideas</span>
+                <p id="idea-line">communication, reliability, problem-solving</p>
+              </div>
+              <div>
+                <span>Follow-up</span>
+                <p id="follow-up-line">Would you prefer to work alone or in a team?</p>
+              </div>
+            </div>
+
+            <label class="answer-label" for="answer-input">Your answer</label>
+            <textarea id="answer-input" rows="6" placeholder="Example: In my opinion, communication is the most important skill because..."></textarea>
+
+            <div class="drill-actions">
+              <button class="primary-action" id="record-answer" type="button">
+                <span aria-hidden="true">●</span>
+                Speak
+              </button>
+              <button class="secondary-action" id="check-answer" type="button">Check errors</button>
+              <button class="secondary-action" id="complete-drill" type="button">Done</button>
+            </div>
+
+            <div class="feedback-box" id="feedback-box" aria-live="polite">
+              <strong>Ready for a B2 answer.</strong>
+              <p>Try 4-7 sentences: opinion, reason, example, and a final thought.</p>
+            </div>
+
+            <section class="analysis-panel" aria-label="Answer correction">
+              <div class="analysis-header">
+                <div>
+                  <p class="eyebrow">Correction</p>
+                  <h3>Where you made mistakes</h3>
+                </div>
+                <span class="score-badge" id="analysis-score">0%</span>
+              </div>
+              <div class="answer-markup" id="answer-markup">Your checked answer will appear here.</div>
+              <div class="issue-list" id="issue-list"></div>
+            </section>
+          </section>
+
+          <section class="lesson-stack" aria-label="Question topics">
+            <button class="lesson-card is-active" type="button" data-topic="work">
+              <span class="lesson-icon">01</span>
+              <span>
+                <strong>Work & interviews</strong>
+                <small>jobs, skills, feedback, teamwork</small>
+              </span>
+            </button>
+            <button class="lesson-card" type="button" data-topic="services">
+              <span class="lesson-icon">02</span>
+              <span>
+                <strong>Daily services</strong>
+                <small>banks, clinics, support, complaints</small>
+              </span>
+            </button>
+            <button class="lesson-card" type="button" data-topic="travel">
+              <span class="lesson-icon">03</span>
+              <span>
+                <strong>Travel problems</strong>
+                <small>delays, hotels, directions, safety</small>
+              </span>
+            </button>
+            <button class="lesson-card" type="button" data-topic="technology">
+              <span class="lesson-icon">04</span>
+              <span>
+                <strong>Technology & AI</strong>
+                <small>privacy, study tools, online life</small>
+              </span>
+            </button>
+            <button class="lesson-card" type="button" data-topic="study-life">
+              <span class="lesson-icon">05</span>
+              <span>
+                <strong>Study & life</strong>
+                <small>stress, habits, money, future</small>
+              </span>
+            </button>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="phrases" data-view-panel="phrases">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">B2 phrase bank</p>
+            <h2>Language for better answers</h2>
+          </div>
+          <input class="search-input" id="phrase-search" type="search" placeholder="Search phrase or topic">
+        </div>
+        <div class="phrase-grid" id="phrase-grid"></div>
+      </section>
+
+      <section class="view" id="roleplay" data-view-panel="roleplay">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Roleplay</p>
+            <h2>Real conversations under pressure</h2>
+          </div>
+          <select id="roleplay-select" aria-label="Choose roleplay">
+            <option value="interview">Job interview</option>
+            <option value="complaint">Customer complaint</option>
+            <option value="healthcare">Clinic appointment</option>
+            <option value="groupwork">Group project</option>
+          </select>
+        </div>
+
+        <div class="roleplay-layout">
+          <section class="dialogue-panel" id="dialogue-panel" aria-live="polite"></section>
+          <aside class="coach-panel">
+            <h3>Coach notes</h3>
+            <p id="coach-note">Use a clear answer, one reason, and one example.</p>
+            <button class="primary-action" id="next-line" type="button">
+              <span aria-hidden="true">→</span>
+              Next line
+            </button>
+          </aside>
+        </div>
+      </section>
+
+      <section class="view" id="progress" data-view-panel="progress">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Progress</p>
+            <h2>Your B2 speaking routine</h2>
+          </div>
+          <button class="secondary-action" id="reset-progress" type="button">Reset</button>
+        </div>
+
+        <div class="metrics-grid">
+          <article class="metric-card">
+            <span>Completed answers</span>
+            <strong id="metric-drills">0</strong>
+          </article>
+          <article class="metric-card">
+            <span>Practiced phrases</span>
+            <strong id="metric-phrases">0</strong>
+          </article>
+          <article class="metric-card">
+            <span>Speaking minutes</span>
+            <strong id="metric-minutes">0</strong>
+          </article>
+        </div>
+
+        <section class="routine-panel">
+          <h3>7-day B2 plan</h3>
+          <div class="routine-list" id="routine-list"></div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
